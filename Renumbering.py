@@ -93,14 +93,16 @@ with open("missing_linkers_final.txt") as input:
             elif k >= 25 and k < 25 + natoms:
                 if len(L) == 8:
                     i = i + 1
-                    missing_linkers.write(L[1] + str(atoms_index_new[i]) + "   " + L[1] + "   "
-                              + L[2] + "   " + L[3] + "   "
-                              + L[4] + "   " + L[5] + "   " + L[6] + "   " + L[7] + "\n")
+                    missing_linkers.write(
+                    L[1] + str(atoms_index_new[i]) + "   " + L[1]
+                    + "   " + L[2] + "   " + L[3] + "   " + L[4]
+                    + "   " + L[5] + "   " + L[6] + "   " + L[7] + "\n")
             elif k >= 25 + natoms and k < 31 + natoms:
                     missing_linkers.write(line)
             elif k >= 31 + natoms:
                 if len(L) == 5:
                     j = j + 1
-                    missing_linkers.write(bond_1_symbols[j] + str(bond_1_new[j]) + "   "
-                                      + bond_2_symbols[j] + str(bond_2_new[j]) + "   " + L[2] + "   "
-                                     + L[3] + "   " + L[4] + "\n")
+                    missing_linkers.write(
+                    bond_1_symbols[j] + str(bond_1_new[j]) + "   " +
+                    bond_2_symbols[j] + str(bond_2_new[j]) + "   " +
+                    L[2] + "   " + L[3] + "   " + L[4] + "\n")
