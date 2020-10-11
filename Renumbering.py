@@ -94,6 +94,7 @@ with open("missing_linkers_final.txt") as input:
                 if len(cif_line) == 8:
                     i = i + 1
 <<<<<<< HEAD
+<<<<<<< HEAD
                     missing_linkers.write(L[1] + str(atoms_index_new[i]) + "   " + L[1] + "   "
                               + L[2] + "   " + L[3] + "   "
                               + L[4] + "   " + L[5] + "   " + L[6] + "   " + L[7] + "\n")
@@ -103,11 +104,18 @@ with open("missing_linkers_final.txt") as input:
                         + cif_line[2] + "   " + cif_line[3] + "   " + cif_line[4] + "   "
                         + cif_line[5] + "   " + cif_line[6] + "   " + cif_line[7] + "\n")
 >>>>>>> 779e60a... PEP8 changes: changed variable name l to cif_file in renumbering.py
+=======
+                    missing_linkers.write(
+                    L[1] + str(atoms_index_new[i]) + "   " + L[1]
+                    + "   " + L[2] + "   " + L[3] + "   " + L[4]
+                    + "   " + L[5] + "   " + L[6] + "   " + L[7] + "\n")
+>>>>>>> 1cc9cd7... change indentation according to PEP convention
             elif k >= 25 + natoms and k < 31 + natoms:
                     missing_linkers.write(line)
             elif k >= 31 + natoms:
                 if len(cif_line) == 5:
                     j = j + 1
+<<<<<<< HEAD
 <<<<<<< HEAD
                     missing_linkers.write(bond_1_symbols[j] + str(bond_1_new[j]) + "   "
                                       + bond_2_symbols[j] + str(bond_2_new[j]) + "   " + L[2] + "   "
@@ -118,3 +126,9 @@ with open("missing_linkers_final.txt") as input:
                     bond_2_symbols[j] + str(bond_2_new[j]) + "   " +
                     cif_line[2] + "   " + cif_line[3] + "   " + cif_line[4] + "\n")
 >>>>>>> 779e60a... PEP8 changes: changed variable name l to cif_file in renumbering.py
+=======
+                    missing_linkers.write(
+                    bond_1_symbols[j] + str(bond_1_new[j]) + "   " +
+                    bond_2_symbols[j] + str(bond_2_new[j]) + "   " +
+                    L[2] + "   " + L[3] + "   " + L[4] + "\n")
+>>>>>>> 1cc9cd7... change indentation according to PEP convention
