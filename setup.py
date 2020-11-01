@@ -8,9 +8,14 @@ setup(name='defects',
       author='Meiirbek Islamov',
       author_email='mei12@pitt.edu',
       url='https://github.com/meiirbek-islamov/defects',
-      packages=['defect'],
+      packages=find_packages(include=['defects']),
       install_requires=[
           'numpy',
           'matplotlib'
       ],
+      entry_points={
+        'console_scripts': [
+          'remove-linkers=defects.cli:introduce_defects_cli'
+        ]
+    }
 )

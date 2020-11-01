@@ -8,7 +8,7 @@ N = 432 # number of linkers to delete (432 = 50% defect density)
 
 i = 0
 j = 0
-input = open("HKUST-1_3x3x3.txt", "r")
+input = open("HKUST-1_3x3x3.cif", "r")
 for line in input:
     cif_line = line.split()
     if len(cif_line) == 8:
@@ -16,10 +16,10 @@ for line in input:
         if cif_line[1] == "C":
             j += 1
 input.close()
-C = np.ones((j,3))
+xyz = np.ones((j,3))
 symbol = np.empty((j), dtype="S10")
 
-input = open("HKUST-1_3x3x3.txt", "r")
+input = open("HKUST-1_3x3x3.cif", "r")
 a = 79.0290 # cell length in Angstrom
 i = -1
 j = -1
@@ -28,11 +28,11 @@ for line in input:
     cif_line = line.split()
     if len(cif_line) == 8:
         i += 1
-        if L[1] == "C":
+        if cif_line[1] == "C":
             j += 1
             symbol[j] = cif_line[0]
             for k in range(3):
-                C[j,k] = float(cif_line[k+2])*a
+                xyz[j,k] = float(cif_line[k+2])*a
 input.close()
 
 j = 7776
@@ -44,9 +44,9 @@ for n in range(j):
     p = 0
     for m in range(j):
         if m != n:
-            rijx = C[n,0] - C[m,0]
-            rijy = C[n,1] - C[m,1]
-            rijz = C[n,2] - C[m,2]
+            rijx = xyz[n,0] - xyz[m,0]
+            rijy = xyz[n,1] - xyz[m,1]
+            rijz = xyz[n,2] - xyz[m,2]
             rij2 = rijx*rijx + rijy*rijy + rijz*rijz
             rij = np.sqrt(rij2)
             if rij < distance:
@@ -67,9 +67,9 @@ for n in range(j):
     list1.append(symbol[n])
     for m in range(j):
         if m != n:
-            rijx = C[n,0] - C[m,0]
-            rijy = C[n,1] - C[m,1]
-            rijz = C[n,2] - C[m,2]
+            rijx = xyz[n,0] - xyz[m,0]
+            rijy = xyz[n,1] - xyz[m,1]
+            rijz = xyz[n,2] - xyz[m,2]
             rij2 = rijx*rijx + rijy*rijy + rijz*rijz
             rij = np.sqrt(rij2)
             if rij < distance:
@@ -139,7 +139,8 @@ for elem in final_list:
 
 
 # Bond information
-input = open("HKUST-1_3x3x3.txt", "r")
+
+input = open("HKUST-1_3x3x3.cif", "r")
 i = 0
 k = -1
 bond_list1 = []
@@ -212,7 +213,7 @@ total_delete_list = delete_list_carbon + H1
 # Write cif file with missing linker
 i = 0
 k = 0
-with open("HKUST-1_3x3x3.txt") as input:
+with open("HKUST-1_3x3x3.cif") as input:
     lines = input.readlines()
     with open("missing_linkers.txt","w") as missing_linkers:
         for line in lines:
@@ -229,8 +230,9 @@ with open("HKUST-1_3x3x3.txt") as input:
                 if not cif_line[0] in total_delete_list and not cif_line[1] in total_delete_list:
                     missing_linkers.write(line)
                     k += 1
-Cxyz = np.ones((3*len(randomlist),3))
-input = open("HKUST-1_3x3x3.txt", "r")
+
+cxyz = np.ones((3*len(randomlist),3))
+input = open("HKUST-1_3x3x3.cif", "r")
 
 for line in input:
     cif_line = line.split()
@@ -238,17 +240,18 @@ for line in input:
         for i in range(len(delete_list_H)):
                 if cif_line[0] == delete_list_H[i]:
                     for k in range(3):
-                        Cxyz[i,k] = float(cif_line[k+2])
-
+                        cxyz[i,k] = float(cif_line[k+2])
 input.close()
 
 # add hydrogens
 
 with open("added_H.txt","w") as added_H_xyz:
     for i in range (len(H1)):
-        added_H_xyz.write(H1[i] + "     " + "H" + "     " + str(Cxyz[i][0]) + "   "
-          + str(Cxyz[i][1]) + "   " + str(Cxyz[i][2]) + "   "
-          + "0.0000" + "   " + "Uiso" + "   " + "1.0" + "\n")
+            added_H_xyz.write(
+            H1[i] + "     " + "H" + "     " + str(cxyz[i][0]) + "   "
+            + str(cxyz[i][1]) + "   " + str(cxyz[i][2]) + "   "
+            + "0.0000" + "   " + "Uiso" + "   " + "1.0" + "\n")
+
 # adding bonds with hydrogen
 
 C_H = []
